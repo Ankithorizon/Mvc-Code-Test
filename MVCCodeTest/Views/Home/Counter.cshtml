@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Counter Test";
+}
+
+<style>
+    .titleSpan {
+        background-color: lightgoldenrodyellow;
+        color: red;
+    }
+    .btnContainer{
+        text-align: center;
+    }
+    .counterContainer{
+        text-align:center;
+    }
+</style>
+
+
+<div class="text-center">
+    <h3 class="display-6">
+        <span class="titleSpan"><u>Counter Test</u></span>
+    </h3>
+</div>
+
+<p></p>
+@{
+    var counter = 0;
+}
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 btnContainer">
+        <button id='btnIncrement' class='btn btn-success' data="@counter">
+            Counter-Increment
+        </button>
+        <button id='btnReset' class='btn btn-info' data="@counter">
+            Counter-Reset
+        </button>
+        <button id='btnDecrement' class='btn btn-warning' data="@counter">
+            Counter-Decrement
+        </button>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 counterContainer">
+        <h4>
+            <label id='counterLabel'>
+                @counter
+            </label>
+        </h4>
+    </div>
+    <div class="col-sm-4"></div>
+    
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#btnIncrement').on('click', function () {
+                var counter = $(this).attr("data");
+                counter = parseInt(counter) + 1;
+                $('#counterLabel').html('');
+                $('#counterLabel').html(counter);
+                $(this).attr('data', counter);
+                $('#btnDecrement').attr('data', counter);
+            });
+            $('#btnReset').on('click', function () {
+                var counter = 0;
+                $('#counterLabel').html('');
+                $('#counterLabel').html(counter);
+                $('#btnIncrement').attr('data', counter);
+                $('#btnDecrement').attr('data', counter);
+                $(this).attr('data', counter);
+            });
+            $('#btnDecrement').on('click', function () {
+                var counter = $(this).attr("data");
+                counter = parseInt(counter) - 1;
+                $('#counterLabel').html('');
+                $('#counterLabel').html(counter);
+                $(this).attr('data', counter);
+                $('#btnIncrement').attr('data', counter);
+            });
+
+
+
+        });
+    </script>
+}

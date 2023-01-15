@@ -23,6 +23,30 @@ namespace MVCCodeTest.Controllers
             return View();
         }
 
+
+        public IActionResult Counter()
+        {
+            return View();
+        }
+        public IActionResult RemoteApi()
+        {
+            return View();
+        }
+        public IActionResult FormSubmit()
+        {
+            return View();
+        }
+        public IActionResult Paging()
+        {
+            return View();
+        }
+        public IActionResult MasterDetail()
+        {
+            return View();
+        }
+
+
+
         public IActionResult Privacy()
         {
             return View();
