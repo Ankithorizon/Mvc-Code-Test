@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MvcCodeTestLib\MvcCodeTestLib.csproj" />
+  </ItemGroup>
+
 </Project>

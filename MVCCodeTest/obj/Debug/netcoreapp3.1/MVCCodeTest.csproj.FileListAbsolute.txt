@@ -40,3 +40,5 @@ C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netc
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\FormSubmit.cshtml.g.cs
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\Paging.cshtml.g.cs
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\MasterDetail.cshtml.g.cs
+C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\bin\Debug\netcoreapp3.1\MvcCodeTestLib.dll
+C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\bin\Debug\netcoreapp3.1\MvcCodeTestLib.pdb

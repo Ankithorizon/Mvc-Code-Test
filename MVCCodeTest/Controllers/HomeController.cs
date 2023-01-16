@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVCCodeTest.Models;
+using MvcCodeTestLib;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,10 +33,55 @@ namespace MVCCodeTest.Controllers
         {
             return View();
         }
+
+        [HttpGet]
         public IActionResult FormSubmit()
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult FormSubmit(LoginData model)
+        {
+            OperationResult retData = new OperationResult();
+
+            try
+            {
+
+                // throw new Exception();
+
+
+                if (ModelState.IsValid)
+                {
+                    retData.Message = "Login SUCCESS !";
+                    retData.ModelErrors = new List<string>();
+                    retData.StatusCode = 0;
+                }
+                else
+                {
+                    retData.Message = "Model is NOT Valid !";
+                    retData.StatusCode = 1;
+                    retData.ModelErrors = new List<string>();
+                    foreach (var modelState in ViewData.ModelState.Values)
+                    {
+                        foreach (var error in modelState.Errors)
+                        {
+                            string mError = error.ErrorMessage.ToString();
+                            retData.ModelErrors.Add(mError);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                retData.Message = "Server Error !";
+                retData.ModelErrors = new List<string>();
+                retData.StatusCode = -1;
+            }
+            return Json(new { Result = retData });
+        }
+
+
         public IActionResult Paging()
         {
             return View();

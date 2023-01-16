@@ -31,6 +31,7 @@
     ".NETCoreApp,Version=v3.1": {
       "MVCCodeTest/1.0.0": {
         "dependencies": {
+          "MvcCodeTestLib": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -319,6 +320,14 @@
         },
         "compile": {
           "MVCCodeTest.dll": {}
+        }
+      },
+      "MvcCodeTestLib/1.0.0": {
+        "runtime": {
+          "MvcCodeTestLib.dll": {}
+        },
+        "compile": {
+          "MvcCodeTestLib.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -2017,6 +2026,11 @@
   },
   "libraries": {
     "MVCCodeTest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MvcCodeTestLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

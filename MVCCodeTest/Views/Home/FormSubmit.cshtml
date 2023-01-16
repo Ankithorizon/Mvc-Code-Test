@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Form Submit Test";
+﻿@model MvcCodeTestLib.LoginData
+@{
+    ViewData["Title"] = "Form Validation - Submit Test";
 }
 
 <style>
@@ -7,10 +8,157 @@
         background-color: lightgoldenrodyellow;
         color: red;
     }
+
+    .emailStyle {
+        width: 400px;
+    }
 </style>
 
 
 <div class="text-center">
     <h3 class="display-6">
-    <span class="titleSpan"><u>Form Submit Test</u></span></h3>
+        <span class="titleSpan"><u>Form Validation - Submit Test</u></span>
+    </h3>
 </div>
+
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div id="floater">
+        </div>
+        <div id="opStatus"></div>
+    </div>
+    <div class="col-sm-4"></div>  
+</div>
+<p></p>
+
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <form id="loginForm"
+              name="loginForm"
+              asp-action="FormSubmit">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"
+                       class="control-label">
+                </label>
+                <input asp-for="Email"
+                       id="Email"
+                       name="Email"
+                       placeholder="email - ?"
+                       class="form-control emailStyle" />
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password"
+                       type="password"
+                       id="Password"
+                       name="Password"
+                       placeholder="password - ?"
+                       class="form-control emailStyle" />
+                <span asp-validation-for="Password"
+                      class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <button type="button"
+                        class="btn btn-primary loginBtn">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var errorCode = 0;
+            $('#floater').hide();
+            $('.loginBtn').click(function () {
+                var form = $('#loginForm');
+                var actionUrl = 'FormSubmit';
+                var sendData = form.serialize();
+                $.post(actionUrl, sendData).done(function (response) {
+                    console.log(response);
+                    console.log(response.result.statusCode);
+                    console.log(response.result.message);
+                    var mErrors = '';
+                    if (response.result.statusCode == 0) {
+                        errorCode = 0;
+                        bkTimer(response.result);
+                        resetUI();
+                    }
+                    else if (response.result.statusCode == -1) {
+                        errorCode = -1;
+                        bkTimer(response.result);
+                    }
+                    else if (response.result.statusCode == 1) {
+                        errorCode = 1;
+                        // model error
+                        mErrors += '<font color="red">';
+                        mErrors += response.result.message;
+                        mErrors += "<ul>";
+                        $.each(response.result.modelErrors, function (key, value) {
+                            mErrors += "<li>" + value + "</li>";
+                        });
+                        mErrors += "</ul></font>";
+                    }
+                    else {
+                        bkTimer(response.result);
+                        resetUI();
+                    }
+                    $('#opStatus').html(mErrors);
+                }).fail(function (error) {
+                    alert("Ajax Call Error");
+                });
+            });
+            // success / error
+            function bkTimer(result) {
+                var div = $("#floater");
+                var content = '';
+                if (result.statusCode == 0) {
+                    content += '<img src="../Images/success.png" style = "width:50px;height:50px;" /> ';
+                    content += '<font color="green">' + result.message + '</font>';
+                }
+                else if (result.statusCode == -1) {
+                    content += '<img src="../Images/error.png" style = "width:50px;height:50px;" /> ';
+                    content += '<font color="red">' + result.message + '</font>';
+                }
+                else {
+                    content += '<img src="../Images/error.png" style = "width:50px;height:50px;" /> ';
+                    content += '<font color="red">' + result.Message + '</font>';
+                }
+                div.html(content);
+                div.fadeIn("slow");
+                if (errorCode == 0) {
+                    console.log('error code = 0');
+                    div.queue(function () {
+                        setTimeout(function () {
+                            div.dequeue();
+                        }, 3000);
+                    });
+                    div.fadeOut("fast");
+                }
+            };
+            function resetUI() {
+                $('#Email').val('');
+                $('#Password').val('');
+            };
+        });
+    </script>
+
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
