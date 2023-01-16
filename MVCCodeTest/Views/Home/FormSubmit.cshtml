@@ -83,6 +83,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            // when page loads, disable login button
+            // $('.loginBtn').prop('disabled', true);
+
+
             var errorCode = 0;
             $('#floater').hide();
             $('.loginBtn').click(function () {
@@ -97,7 +102,7 @@
                     if (response.result.statusCode == 0) {
                         errorCode = 0;
                         bkTimer(response.result);
-                        resetUI();
+                        resetUI();                        
                     }
                     else if (response.result.statusCode == -1) {
                         errorCode = -1;

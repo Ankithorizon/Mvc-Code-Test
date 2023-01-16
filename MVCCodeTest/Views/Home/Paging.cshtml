@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<MvcCodeTestLib.User>
+
+@{
     ViewData["Title"] = "Paging Test";
 }
 
@@ -7,10 +9,112 @@
         background-color: lightgoldenrodyellow;
         color: red;
     }
+
+    .tableData {
+        font-size: large;
+    }
+
+    .centerContent {
+        text-align: center;
+    }
+
+    .rightContent{
+        text-align: right;
+    }
 </style>
 
+@{ 
+    decimal currentPage = 1;
+    decimal recordsPerPage = 2;
+    int totalPages = Convert.ToInt32(Math.Ceiling(Model.Count() / recordsPerPage));
 
+}
 <div class="text-center">
     <h3 class="display-6">
-    <span class="titleSpan"><u>Paging Test</u></span></h3>
+        <span class="titleSpan"><u>Paging Test</u></span>
+    </h3>
 </div>
+
+<p></p>
+<div class="row">
+    <div class="col-sm-5">
+        @if (Model.Count() > 0)
+        {
+            <p></p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p></p>
+            <div class="container"
+                 style="color:red; font-size:xx-large;">
+                User NOT Found!
+            </div>
+            <p></p>
+        }
+    </div>
+    <div class="col-sm-7">
+        <div class="row">
+            <div class="col-sm-4">
+                <button id='btnPreviousData'
+                        class='btn btn-info'
+                        data="@currentPage">
+                    Previous
+                </button>
+            </div>
+            <div class="col-sm-4 centerContent">
+                <h4>Page : @currentPage of @totalPages</h4>
+            </div>
+            <div class="col-sm-4 rightContent">
+                <button id='btnNextData'
+                        class='btn btn-info'
+                        data="@currentPage">
+                    Next
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {        
+
+
+
+        });
+    </script>
+}
