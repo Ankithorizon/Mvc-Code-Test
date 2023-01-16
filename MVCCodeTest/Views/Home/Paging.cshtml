@@ -113,7 +113,23 @@
     <script type="text/javascript">
         $(document).ready(function () {        
 
+            $('#btnNextData').on('click', function () {
+                var currentPageNumber = $(this).attr("data");
+                currentPageNumber = parseInt(currentPageNumber) + 1;
 
+                $(this).attr('data', currentPageNumber);
+                $('#btnPreviousData').attr('data', currentPageNumber);
+                console.log(currentPageNumber);
+            });
+
+            $('#btnPreviousData').on('click', function () {
+                var currentPageNumber = $(this).attr("data");
+                currentPageNumber = parseInt(currentPageNumber) - 1;
+
+                $(this).attr('data', currentPageNumber);
+                $('#btnNextData').attr('data', currentPageNumber);
+                console.log(currentPageNumber);
+            });
 
         });
     </script>
