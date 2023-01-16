@@ -7,10 +7,161 @@
         background-color: lightgoldenrodyellow;
         color: red;
     }
+
+    .randomUserClass {
+        font-size: large;
+        font-display: block;
+        text-align: center;
+    }
+
+    .btnNextClass { 
+        text-align: center;
+    }
+
+    .pageUserClass {
+        font-size: large;
+        font-display: block;
+        text-align: center;
+    }
 </style>
 
 
 <div class="text-center">
     <h3 class="display-6">
-    <span class="titleSpan"><u>Remote Api Test</u></span></h3>
+        <span class="titleSpan"><u>Remote Api Test</u></span>
+    </h3>
 </div>
+
+<p></p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div id="randomUserData" class="randomUserClass"></div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+
+<p></p>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div id="randomUserDataTable">
+            <div>
+                Gender : <span id="genderSpan"></span>
+            </div>
+            <div>
+                Name : <span id="nameSpan"></span>
+            </div>
+            <div>
+                Email : <span id="emailSpan"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+
+@{
+    var pageNumber = 1;
+}
+<p></p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 btnNextClass">
+        <button id='btnNextData' class='btn btn-success' data="@pageNumber">
+            Next Data
+        </button>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div id="pageUserData" class="pageUserClass"></div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // when page loads first time
+            var url = 'https://randomuser.me/api';
+            $.get(url).done(function (data) {
+                console.log(data.results[0]);
+
+                if (data != null) {
+                    var content = '';
+                    var userImage = data.results[0].picture.medium;
+                    console.log(userImage);
+                    content += '<img src=' + userImage + ' style = "width:50px;height:50px;" />';
+                    content += '&nbsp;&nbsp;&nbsp;<font color="' + getColor(data.results[0].gender) + '">' + data.results[0].name.title + ' ' + data.results[0].name.first + ', ' + data.results[0].name.last + '</font>';
+
+                    $('#randomUserData').html(content);
+
+                    $('#genderSpan').html(getGender(data.results[0]));
+                    $('#nameSpan').html(getName(data.results[0]));
+                    $('#emailSpan').html(getEmail(data.results[0]));
+                }
+            });
+
+            function getEmail(data) {
+                return '<font color="' + getColor(data.gender) + '">' + data.email + '</font>';
+            }
+
+            function getName(data) {
+                return '<font color="' + getColor(data.gender) + '">' + data.title + ' ' + data.first + ', ' + data.last + '</font>';
+            }
+
+            function getGender(data) {
+                return '<font color="' + getColor(data.gender) + '">' + data.gender + '</font>';
+            }
+            function getColor(gender) {
+                if (gender == 'male')
+                    return 'blue';
+                else return 'red';
+            }
+
+
+            function getPageData() {
+
+                var currentPageNumber = $('#btnNextData').attr("data");
+
+                var pageUrl = 'https://randomuser.me/api?page=' + currentPageNumber;
+                $.get(pageUrl).done(function (data) {
+                    console.log(data.results[0]);
+
+                    if (data != null) {
+                        console.log(data);
+                        var content = '';
+                        var userImage = data.results[0].picture.medium;
+                        console.log(userImage);
+                        content += '<img src=' + userImage + ' style = "width:50px;height:50px;" />';
+                        content += '&nbsp;&nbsp;&nbsp;<font color="' + getColor(data.results[0].gender) + '">' + data.results[0].name.title + ' ' + data.results[0].name.first + ', ' + data.results[0].name.last + '</font>';
+
+                        $('#pageUserData').html(content);
+                    }
+                });
+            }
+            getPageData();
+
+
+            $('#btnNextData').on('click', function () {
+                var currentPageNumber = $(this).attr("data");
+                currentPageNumber = parseInt(currentPageNumber) + 1;
+
+                if (currentPageNumber >= 11)
+                    return;
+
+                $(this).attr('data', currentPageNumber);
+
+                console.log(currentPageNumber);
+                getPageData();
+            });
+
+        });
+    </script>
+}

@@ -1,7 +1,6 @@
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\bin\Debug\netcoreapp3.1\MvcCodeTestLib.deps.json
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\bin\Debug\netcoreapp3.1\MvcCodeTestLib.dll
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\bin\Debug\netcoreapp3.1\MvcCodeTestLib.pdb
-C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.csproj.AssemblyReference.cache
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.AssemblyInfoInputs.cache
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.AssemblyInfo.cs
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.csproj.CoreCompileInputs.cache
