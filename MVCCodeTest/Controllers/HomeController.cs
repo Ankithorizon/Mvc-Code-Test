@@ -105,6 +105,11 @@ namespace MVCCodeTest.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult DataByUserDetail([FromBody] UserData model)
+        {             
+            return PartialView("_DataByUserDetail", model);
+        }
 
 
 

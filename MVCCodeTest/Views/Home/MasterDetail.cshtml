@@ -12,5 +12,74 @@
 
 <div class="text-center">
     <h3 class="display-6">
-    <span class="titleSpan"><u>Master Detail Test</u></span></h3>
+        <span class="titleSpan"><u>Master Detail Test</u></span>
+    </h3>
 </div>
+
+<p></p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <h4>User List</h4>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+
+<p></p>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3" id="usersCollection">
+        
+    </div>
+    <div class="col-sm-6" id="userDetail">
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("table tr").click(function () {
+                console.log('fcuk');
+            });
+
+         
+
+            function createUsersCollectionTable(users) {            
+                var container = $('#usersCollection');
+
+                table = $('<table id="usersCollectionTable">');
+
+                users.forEach(function (user) {
+                    var tr = $('<tr>');
+                    ['name'].forEach(function (attr) {
+                        tr.append('<td> <input type="button" class="btn btn-info" id="btnGetUserDetail" value="' + user[attr] + '" />  </td>');
+                    });
+                    table.append(tr);
+                });
+
+                container.append(table);
+
+            }
+
+          
+
+            function getUsers() {
+
+                var pageUrl = 'https://jsonplaceholder.typicode.com/users';
+                $.get(pageUrl).done(function (data) {
+                    console.log(data);
+
+                    createUsersCollectionTable(data);
+                });
+            }
+            getUsers();
+
+
+        });
+    </script>
+}

@@ -6,3 +6,4 @@ C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\n
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.csproj.CoreCompileInputs.cache
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.dll
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.pdb
+C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MvcCodeTestLib\obj\Debug\netcoreapp3.1\MvcCodeTestLib.csproj.AssemblyReference.cache
