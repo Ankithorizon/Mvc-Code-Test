@@ -52,6 +52,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            var allUsers = [];
             var selectedUser = {
                 name: '',
                 username: '',
@@ -59,8 +60,9 @@
             };
 
 
-            function createUsersCollectionTable(users) {            
+            function createUsersCollectionTable(users) {
                 var container = $('.table-body');
+                container.html('');
 
                 users.forEach(function (user) {
                     var tr = $('<tr>');
@@ -71,7 +73,7 @@
                 });
             }
 
-          
+
 
             function getUsers() {
 
@@ -80,13 +82,15 @@
                     console.log(data);
 
                     createUsersCollectionTable(data);
+
+                    allUsers = data;
                 });
             }
             getUsers();
 
 
             $("#table-body-id").on("click", "tr", function () {
-                var selectedUserName = $(this).find('td:first').html(); // .val();              
+                var selectedUserName = $(this).find('td:first').html(); // .val();
 
 
                 selectedUser.name = $(this).find('td:first').attr("name");
@@ -110,6 +114,27 @@
                         console.log('Error...');
                     }
                 });
+            });
+
+
+            function findIndexToUpdate(updatedUser) {
+
+            }
+            $(document).on('click', '#changeNameBtn', function(){
+                var form = $('#userDataForm');
+                var sendData = form.serialize();
+
+                var newName = $('#Name').val();
+                console.log('new name : ' + newName);
+                console.log('old name : ' + selectedUser.name);
+
+
+                let updateUser = allUsers.find((x) => x.name == selectedUser.name);                
+                let index = allUsers.indexOf(updateUser);
+                allUsers[index].name = newName;
+
+
+                createUsersCollectionTable(allUsers);
             });
 
 
