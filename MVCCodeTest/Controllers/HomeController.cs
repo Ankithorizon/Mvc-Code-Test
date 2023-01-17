@@ -90,6 +90,17 @@ namespace MVCCodeTest.Controllers
             var users = _userService.GetAllUsers();
             return View(users);
         }
+        [HttpPost]
+        public IActionResult DataByPaging([FromBody] DataByPagingDTO model)
+        {
+            var data = _userService.GetAllUsers()
+                          .OrderBy(user => user.Id)
+                          .Skip((model.CurrentPageNumber - 1) * model.RecordsPerPage)
+                          .Take(model.RecordsPerPage).ToList();
+            return PartialView("_DataByPaging", data);
+        }
+
+
         public IActionResult MasterDetail()
         {
             return View();

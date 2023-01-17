@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<MvcCodeTestLib.User>
 
+
 @{
     ViewData["Title"] = "Paging Test";
 }
@@ -18,14 +19,14 @@
         text-align: center;
     }
 
-    .rightContent{
+    .rightContent {
         text-align: right;
     }
 </style>
 
-@{ 
+@{
     decimal currentPage = 1;
-    decimal recordsPerPage = 2;
+    decimal recordsPerPage = 3;
     int totalPages = Convert.ToInt32(Math.Ceiling(Model.Count() / recordsPerPage));
 
 }
@@ -93,7 +94,7 @@
                 </button>
             </div>
             <div class="col-sm-4 centerContent">
-                <h4>Page : @currentPage of @totalPages</h4>
+                <h4 id="pagingControlData">Page : @currentPage of @totalPages</h4>
             </div>
             <div class="col-sm-4 rightContent">
                 <button id='btnNextData'
@@ -103,33 +104,91 @@
                 </button>
             </div>
         </div>
-        
+        <p></p>
+        <div class="row">
+            <div class="col-sm-12" id="dataByPading">
+            </div>
+        </div>
     </div>
-</div>
 
 
 @section Scripts {
 
     <script type="text/javascript">
-        $(document).ready(function () {        
+        $(document).ready(function () {
 
             $('#btnNextData').on('click', function () {
                 var currentPageNumber = $(this).attr("data");
                 currentPageNumber = parseInt(currentPageNumber) + 1;
 
+                if (currentPageNumber >@totalPages)
+                    return;
+
                 $(this).attr('data', currentPageNumber);
                 $('#btnPreviousData').attr('data', currentPageNumber);
                 console.log(currentPageNumber);
+
+                $('#pagingControlData').html('');
+                $('#pagingControlData').html(getPagingControlDataContent(currentPageNumber));
+
+                getPageData(currentPageNumber);
+
             });
 
             $('#btnPreviousData').on('click', function () {
                 var currentPageNumber = $(this).attr("data");
                 currentPageNumber = parseInt(currentPageNumber) - 1;
 
+                if (currentPageNumber < 1)
+                    return;
+
                 $(this).attr('data', currentPageNumber);
                 $('#btnNextData').attr('data', currentPageNumber);
                 console.log(currentPageNumber);
+
+                $('#pagingControlData').html('');
+                $('#pagingControlData').html(getPagingControlDataContent(currentPageNumber));
+
+                getPageData(currentPageNumber);
             });
+
+
+            function getPagingControlDataContent(currentPageNumber) {
+                var pagingControlDataContent = '';
+                pagingControlDataContent += 'Page : ';
+                pagingControlDataContent += currentPageNumber + ' of ' +@totalPages;
+
+                return pagingControlDataContent;
+            };
+
+
+            function getPageData(pageNumber) {
+                console.log(pageNumber);
+
+                var model = {
+                    currentPageNumber: pageNumber,
+                    recordsPerPage : @recordsPerPage
+                };             
+
+                $.ajax({
+                    type: "Post",
+                    url: "/Home/DataByPaging",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+                        $('#dataByPading').html(response);
+                    },
+                    failure: function (response) {
+                        console.log('Error...');
+                    },
+                    error: function (response) {
+                        console.log('Error...');
+                    }
+                });
+
+            }
+            getPageData(1);
 
         });
     </script>
