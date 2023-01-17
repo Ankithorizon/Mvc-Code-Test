@@ -27,10 +27,19 @@
 
 <p></p>
 <div class="row">
-    <div class="col-sm-3"></div>
+    <div class="col-sm-2"></div>
     <div class="col-sm-3" id="usersCollection">
-        
+        <table class="table" id="table-id">
+            <thead>
+                @*<tr class="table-header">
+                        <th></th>
+                    </tr>*@
+            </thead>
+            <tbody class="table-body" id="table-body-id">
+            </tbody>
+        </table>
     </div>
+    <div class="col-sm-1"></div>
     <div class="col-sm-6" id="userDetail">
 
     </div>
@@ -43,27 +52,23 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("table tr").click(function () {
-                console.log('fcuk');
-            });
+            var selectedUser = {
+                name: '',
+                username: '',
+                email : ''
+            };
 
-         
 
             function createUsersCollectionTable(users) {            
-                var container = $('#usersCollection');
-
-                table = $('<table id="usersCollectionTable">');
+                var container = $('.table-body');
 
                 users.forEach(function (user) {
                     var tr = $('<tr>');
                     ['name'].forEach(function (attr) {
-                        tr.append('<td> <input type="button" class="btn btn-info" id="btnGetUserDetail" value="' + user[attr] + '" />  </td>');
+                        tr.append('<td name="'+ user.name +'" username="'+ user.username +'" email="' + user.email +'">' + user[attr]  +'</td>');
                     });
-                    table.append(tr);
+                    container.append(tr);
                 });
-
-                container.append(table);
-
             }
 
           
@@ -78,6 +83,34 @@
                 });
             }
             getUsers();
+
+
+            $("#table-body-id").on("click", "tr", function () {
+                var selectedUserName = $(this).find('td:first').html(); // .val();              
+
+
+                selectedUser.name = $(this).find('td:first').attr("name");
+                selectedUser.username = $(this).find('td:first').attr("username");
+                selectedUser.email = $(this).find('td:first').attr("email");
+
+
+                $.ajax({
+                    type: "Post",
+                    url: "/Home/DataByUserDetail",
+                    data: JSON.stringify(selectedUser),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+                        $('#userDetail').html(response);
+                    },
+                    failure: function (response) {
+                        console.log('Error...');
+                    },
+                    error: function (response) {
+                        console.log('Error...');
+                    }
+                });
+            });
 
 
         });
