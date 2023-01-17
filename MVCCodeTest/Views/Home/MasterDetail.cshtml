@@ -116,10 +116,8 @@
                 });
             });
 
-
-            function findIndexToUpdate(updatedUser) {
-
-            }
+            // child call back to parent
+            // to update name of selected-user            
             $(document).on('click', '#changeNameBtn', function(){
                 var form = $('#userDataForm');
                 var sendData = form.serialize();
@@ -128,11 +126,10 @@
                 console.log('new name : ' + newName);
                 console.log('old name : ' + selectedUser.name);
 
-
+                // update parent list of users also
                 let updateUser = allUsers.find((x) => x.name == selectedUser.name);                
                 let index = allUsers.indexOf(updateUser);
                 allUsers[index].name = newName;
-
 
                 createUsersCollectionTable(allUsers);
             });
