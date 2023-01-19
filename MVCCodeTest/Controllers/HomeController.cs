@@ -37,6 +37,7 @@ namespace MVCCodeTest.Controllers
             return View();
         }
 
+
         [HttpGet]
         public IActionResult FormSubmit()
         {
@@ -90,6 +91,7 @@ namespace MVCCodeTest.Controllers
             var users = _userService.GetAllUsers();
             return View(users);
         }
+        // PartialView
         [HttpPost]
         public IActionResult DataByPaging([FromBody] DataByPagingDTO model)
         {
@@ -105,13 +107,18 @@ namespace MVCCodeTest.Controllers
         {
             return View();
         }
+        // PartialView
         [HttpPost]
         public IActionResult DataByUserDetail([FromBody] UserData model)
         {             
             return PartialView("_DataByUserDetail", model);
         }
 
-
+        public IActionResult AddAndDisplayData()
+        {
+            var usersData = _userService.GetAllUsers();
+            return View("Add-Display-Search-Data", usersData);
+        }
 
         public IActionResult Privacy()
         {
