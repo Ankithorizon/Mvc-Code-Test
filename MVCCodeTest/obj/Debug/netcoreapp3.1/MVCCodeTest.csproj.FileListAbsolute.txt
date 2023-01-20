@@ -118,3 +118,4 @@ C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\bin\Debug\netc
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\_DataByPaging.cshtml.g.cs
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\_DataByUserDetail.cshtml.g.cs
 C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\Add-Display-Search-Data.cshtml.g.cs
+C:\Users\ankit_2\Desktop\Interview-Code\mvc-test-code\MVCCodeTest\obj\Debug\netcoreapp3.1\Razor\Views\Home\_AddNewUser.cshtml.g.cs

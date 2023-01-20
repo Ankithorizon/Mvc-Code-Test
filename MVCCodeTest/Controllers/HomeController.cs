@@ -117,7 +117,16 @@ namespace MVCCodeTest.Controllers
         public IActionResult AddAndDisplayData()
         {
             var usersData = _userService.GetAllUsers();
-            return View("Add-Display-Search-Data", usersData);
+            var model = new User_List_AddNew();
+            model.Users = usersData;
+            model.NewUser = new User();
+
+            return View("Add-Display-Search-Data", model);
+        }
+        // PartialView
+        public IActionResult AddNewUser()
+        {
+            return PartialView("_AddNewUser");
         }
 
         public IActionResult Privacy()

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MvcCodeTestLib.User>
+﻿@model MvcCodeTestLib.User_List_AddNew
 
 @{
     ViewData["Title"] = "Add - Display - Search Data";
@@ -20,10 +20,12 @@
 
 <div class="row">
     <div class="col-sm-5">
-        Add New User
+        <div id="addNewUser">    
+            <partial name="_AddNewUser" model="Model" />
+        </div>
     </div>      
     <div class="col-sm-5">
-        @if (Model.Count() > 0)
+        @if (Model.Users.Count()>0)
         {
             <p></p>
             <table class="table">
@@ -33,15 +35,15 @@
                             #
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Name)
+                            Name
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Address)
+                            Address
                         </th>
                     </tr>
                 </thead>
                 <tbody id="usersTableBody">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Users)
                     {
                         <tr>
                             <td>
@@ -76,6 +78,64 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 // $('#usersTableBody').html('');
+
+                var newUser = {
+                };
+                var users = [];
+                var lastId = @Model.Users.Count();
+
+                var totalCount = @Model.Users.Count();
+                console.log(totalCount);
+
+
+                function addNewUserToTable(newUser) {
+
+                    if (users.length < 1) {
+                        // no previous add                        
+                    }
+                    else {
+                        // previously added
+                        var lastAddedUserId = users[users.length - 1].id;
+                        newUser.id = lastAddedUserId + 1;
+                    }
+
+                    var container = $('#usersTableBody');
+                    var tr = $('<tr>');
+                    tr.append('<td>' + newUser.id + '</td><td>'+ newUser.name + '</td><td>'+newUser.address+ '</td>');
+                    container.append(tr);
+
+                    users.push(newUser);
+                    console.log(users);
+                }
+
+
+
+                // child call back to parent
+                // to add new user
+                $(document).on('click', '.newUserBtn', function () {
+                    var form = $('#userForm');
+                    var sendData = form.serialize();
+
+                    console.log(sendData);
+
+                    var id = totalCount + 1;
+                    var name = $('#Name').val();
+                    var address = $('#Address').val();
+                    newUser = {
+                        id: id,
+                        name: name,
+                        address : address
+                    };
+                    console.log(newUser);
+
+                    // append new user to table
+                    addNewUserToTable(newUser);
+
+                });
+
+
+
+
             });
         </script>
     }
